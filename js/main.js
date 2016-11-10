@@ -1,4 +1,4 @@
-document.getElementById("mainForm").onsubmit = function() {
+document.forms["mainForm"].onsubmit = function() {
 	greet(document.getElementById("greetText"), document.getElementById("username"));
 };
 
