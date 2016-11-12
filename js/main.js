@@ -1,47 +1,39 @@
-function greet(p, name) {
+function greet(event) {
+	var name = document.getElementById("username");
+	var p = document.getElementById("greetText");
+
 	console.log("greet");
 
-	if (!document.getElementById("dtCheckBox").checked) {
-		removeOnSubmitEvents();	
-	};
-
 	p.innerHTML = "Hello, " + name.value + "!";
+
+	if (!document.getElementById("dtCheckBox").checked){
+		event.stopImmediatePropagation();
+	}
 };
 
-function writeHHMM(p) {
-	console.log("HHMM");
+function writeHHMM(event) {
+	var p = document.getElementById("HHMMText");
 	var n = new Date();
 	var hh = n.getHours();
 	var mm = n.getMinutes();
 
+	console.log("HHMM");
+
 	p.innerHTML = hh + ":" + mm;
 };
 
-function writeYYYY(p) {
-	console.log("YYYY");
+function writeYYYY(event) {
+	var p = document.getElementById("YYYYText");
 	var n = new Date();
 	var yyyy = n.getFullYear();
+	
+	console.log("YYYY");
 
 	p.innerHTML = yyyy;
 };
 
-var mySubmitEvents = new Array();
 var myForm = document.getElementById("mainForm");
 
-myForm.addEventListener("submit", mySubmitEvents[mySubmitEvents.length] = function() {
-	greet(document.getElementById("greetText"), document.getElementById("username"))
-});
-
-myForm.addEventListener("submit", mySubmitEvents[mySubmitEvents.length] = function() {
-	writeHHMM(document.getElementById("HHMMText"))
-});
-
-myForm.addEventListener("submit", mySubmitEvents[mySubmitEvents.length] = function() {
-	writeYYYY(document.getElementById("YYYYText"))
-});
-
-function removeOnSubmitEvents() {
-	mySubmitEvents.forEach(function(element, index, mySubmitEvents) { 
-		myForm.removeEventListener("submit", element)
-	});
-};
+myForm.addEventListener("submit", greet);
+myForm.addEventListener("submit", writeHHMM);
+myForm.addEventListener("submit", writeYYYY);
